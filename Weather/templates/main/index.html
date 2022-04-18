@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% extends "main/base.html" %}
+{% block title %}Home{% endblock %}
+{% load static %}
+
+{% block content %}
+  <div id="jumbotron" class="jumbotron" style="text-align: center; margin-top:-50px">
+    <h1 class="display-5">Welcome to Air Pollution App! </h1>
+    <h5>Using Python Language and Django Framework</h5>
+
+    <img src="{% static 'images/ozone.png' %}" class="image" style="width:150px; margin-bottom:-100px; ">
+  </div>
+
+  <h2 class="text-warning" style="text-align:center;">What do you want to do today?</h2>
+  <br>
+
+  <div class="container">
+    <div class="row">
+      <div class="col text-center">
+        <div class="span1">
+          <p><button type="button" class="btn btn-success btn-lg custom" onclick="location.href = '/currentWeather'">Check weather</button></p>
+          <p><button type="button" class="btn btn-info btn-lg custom" onclick="location.href = '/pollution'">Check air pollution</button></p>
+          <p><button type="button" class="btn btn-warning btn-lg custom" onclick="location.href = '/forecast'">Get forecast</button></p>
+          <p><button type="button" class="btn btn-light btn-lg custom" onclick="location.href = '/geoCity'">Find local names</button></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+{% endblock %}

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% extends "main/base.html" %}
+{% block title %}Forecast{% endblock %}
+{% load static %}
+
+{% block content %}
+  <div id="jumbotron" class="jumbotron" style="text-align: center; margin-top:-50px">
+    <h1 class="display-5">Air Pollution App </h1>
+    <h5>History and forecast for the next 5 days</h5>
+
+    <img src="{% static 'images/forecastIcon.png' %}" class="image" style="width:100px; margin-bottom:-50px; ">
+  </div>
+
+  {{ df | safe }}
+  <hr>
+  <div>
+    {% if error_message%}
+      <p style="text-align:center;">{{error_message}}
+    {% endif %}
+
+    <form action="" method="POST" class="ui form">
+    {% csrf_token %}
+
+      <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <div class=" input-group">
+            <input type="text" class="form-control" name="city" placeholder="Choose Your City ...">
+            <div class="input-group-btn">
+              <button type="submit" class="btn btn-success">Search</button>
+            </div>
+            </div>
+        </nav>
+      </div>
+
+      <div class="container">
+      <fieldset>
+        <div class="form-group">
+          <label for="select" class="form-label mt-4">Graph type</label>
+          <select name="graphType" class="form-select" id="select">
+            <option value="">Choose type of graph</option>
+            <option value="bar plot">Bar plot</option>
+            <option value="line plot">Line plot</option>
+            <option value="count plot">Cat plot</option>
+            <option value="scatter plot">Scatter plot</option>
+          </select>
+        </div>
+      </fieldset>
+      </div>
+
+    </form>
+
+    {% if request.POST %}
+      <ul>
+        {% for graph in list_of_graphs %}
+          <li>
+            <p style="text-align:center;"><img src="data:image/png;base64, {{ graph | safe}} ">
+            <br><br><br>
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+     <div class="d-flex align-items-end">
+        <div class="card text-white bg-info mb-3" style="width: 21.5em;margin:0 auto;">
+          <div class="card-header">About compounds</div>
+            <div class="card-body">
+              <h4 class="card-title">Used units</h4>
+              <p class="card-text">The unit used to express the concentration of chemical
+                compounds in air is μg/m3. AQI (Air Quality Index) is an unit indicator. Full names of used compounds:
+                CO - Carbon monoxide, NO - Nitrogen monoxide, NO2 - Nitrogen dioxide, O3 - Ozone,
+                SO2 - Sulphur dioxide, PM2_5 - Fine particles matter, PM10 - Coarse particulate matter, NH3 - Ammonia.</p>
+            </div>
+        </div>
+      </div>
+
+  </div>
+
+{% endblock %}

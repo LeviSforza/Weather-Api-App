@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% extends "main/base.html" %}
+{% block title %}Weather{% endblock %}
+{% load static %}
+
+{% block content %}
+  <div id="jumbotron" class="jumbotron" style="text-align: center; margin-top:-50px">
+    <h1 class="display-5">Air Pollution App </h1>
+    <h5>Current weather for your city</h5>
+
+    <img src="{% static 'images/weatherIcon.png' %}" class="image" style="width:100px; margin-bottom:-50px; ">
+  </div>
+
+  <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <form method="post" class="col-md">
+        {% csrf_token %}
+        <div class=" input-group">
+
+        <input type="text" class="form-control" name="city" placeholder="Choose Your City ...">
+        <div class="input-group-btn">
+          <button type="submit" class="btn btn-success">Search</button>
+        </div>
+        </div>
+      </form>
+    </nav>
+  </div>
+
+  <div class="row">
+    {% if country_code and coordinate and temp and pressure and humidity %}
+    <div class="col d-flex justify-content-center">
+      <div class="card bg-success mb-3">
+      <div class=" card-body">
+        <h4 class="text-primary"><span class="badge bg-primary">City Name :</span> {{name}}</h4>
+        <h4 class="text-primary"><span class="badge bg-primary">Country Code :</span> {{country_code}}</h4>
+        <h4 class="text-primary"><span class="badge bg-primary">Coordinates [X,Y] :</span> {{coordinate}}</h4>
+        <h4 class="text-primary"><span class="badge bg-primary">Sunrise :</span> {{sunrise}}</h4>
+        <h4 class="text-primary"><span class="badge bg-primary">Sunset :</span> {{sunset}}</h4>
+        <h4 class="text-primary"><span class="badge bg-primary">Temperature (°C) :</span> {{temp}}</h4>
+        <h4 class="text-primary"><span class="badge bg-primary">Pressure (hPa) :</span> {{pressure}} </h4>
+        <h4 class="text-primary"><span class="badge bg-primary">Humidity (%) : </span> {{humidity}}</h4>
+        <h4 class="text-primary"><span class="badge bg-primary">Wind (m/s) :</span> {{wind}}</h4>
+        <h4 class="text-primary"><span class="badge bg-primary">Current weather : </span> {{main}} <img
+            src="http://openweathermap.org/img/w/{{icon}}.png" alt="Image" style="width:70px"></h4>
+        <h4 class="text-primary"><span class="badge bg-primary">Description : </span> {{description}}</h4>
+      </div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+{% endblock %}

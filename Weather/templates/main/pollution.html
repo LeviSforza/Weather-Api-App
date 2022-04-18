@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% extends "main/base.html" %}
+{% block title %}Pollution{% endblock %}
+{% load static %}
+
+{% block content %}
+  <div id="jumbotron" class="jumbotron" style="text-align: center; margin-top:-50px">
+    <h1 class="display-5">Pollution Desktop App </h1>
+    <h5>Current air pollution for your city</h5>
+
+    <img src="{% static 'images/pollutionIcon.png' %}" class="image" style="width:100px; margin-bottom:-50px; ">
+  </div>
+
+  <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <form method="post" class="col-md">
+        {% csrf_token %}
+        <div class=" input-group">
+
+        <input type="text" class="form-control" name="city" placeholder="Choose Your City ...">
+        <div class="input-group-btn">
+          <button type="submit" class="btn btn-success">Search</button>
+        </div>
+        </div>
+      </form>
+    </nav>
+  </div>
+
+  <div class="row">
+    {% if aqi and co %}
+    <div class="col d-flex justify-content-center" >
+      <div class="card bg-success mb-3" style="width: 300px">
+      <div class=" card-body">
+        <h4 class="text-primary"><span class="badge bg-primary">City Name :</span> {{cityName}}</h4>
+        <h4 class="text-primary"><span class="badge bg-primary">AQI :</span> {{aqi}}</h4>
+        <h4 class="text-primary"><span class="badge bg-primary">CO :</span> {{co}}</h4>
+        <h4 class="text-primary"><span class="badge bg-primary">NO :</span> {{no}}</h4>
+        <h4 class="text-primary"><span class="badge bg-primary">NO2 :</span> {{no2}} </h4>
+        <h4 class="text-primary"><span class="badge bg-primary">O3 : </span> {{o3}}</h4>
+        <h4 class="text-primary"><span class="badge bg-primary">SO2 :</span> {{so2}}</h4>
+        <h4 class="text-primary"><span class="badge bg-primary">PM2_5 :</span> {{pm2_5}} </h4>
+        <h4 class="text-primary"><span class="badge bg-primary">PM10 : </span> {{pm10}}</h4>
+        <h4 class="text-primary"><span class="badge bg-primary">NH3 : </span> {{nh3}}</h4>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+    <div class="d-flex align-items-end">
+      <div class="card text-white bg-info mb-3" style="width: 21.5em;margin:0 auto;">
+        <div class="card-header">About compounds</div>
+          <div class="card-body">
+            <h4 class="card-title">Used units</h4>
+            <p class="card-text">The unit used to express the concentration of chemical
+              compounds in air is μg/m3. AQI (Air Quality Index) is an unit indicator. Full names of used compounds:
+              CO - Carbon monoxide, NO - Nitrogen monoxide, NO2 - Nitrogen dioxide, O3 - Ozone,
+              SO2 - Sulphur dioxide, PM2_5 - Fine particles matter, PM10 - Coarse particulate matter, NH3 - Ammonia.</p>
+          </div>
+      </div>
+    </div>
+
+
+{% endblock %}
